@@ -1,11 +1,23 @@
-from command import listen_command, do_command
+import atexit
+import os
+
+from loguru import logger
+
+from command import do_commands
+from exit import cleanup
 
 
 def main() -> None:
-    while True:
-        command = listen_command()
-        do_command(command)
+    do_commands()
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        atexit.register(cleanup)
+        main()
+    except KeyboardInterrupt:
+        logger.info("Скрипт завершен")
+        os._exit(1)
+    except Exception as ex:
+        logger.warning(f"{type(ex)} {ex}")
+        os._exit(1)
