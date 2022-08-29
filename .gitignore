@@ -1,1 +1,5 @@
 venv
+*cache
+*__pycache__
+driver
+test.py
