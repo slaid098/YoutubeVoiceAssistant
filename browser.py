@@ -23,9 +23,13 @@ def set_chrome_driver() -> Chrome:
         ChromeDriverManager(path=path_webdriver).install()), options=options)
 
 
-def get_url(url: str) -> None:
+def get_url(url: str = "") -> None:
     try:
-        driver.get(url)
+        global driver
+        driver.minimize_window()
+        driver.maximize_window()
+        if url != "":
+            driver.get(url)
     except WebDriverException as ex:
         logger.warning(f"{type(ex)} {ex}")
     except Exception as ex:
