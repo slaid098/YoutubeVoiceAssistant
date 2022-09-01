@@ -3,3 +3,6 @@ venv
 *__pycache__
 driver
 test.py
+build
+dist
+*.spec
