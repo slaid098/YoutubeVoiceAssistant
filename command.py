@@ -1,9 +1,10 @@
 from typing import Literal
 from pathlib import Path
 from datetime import datetime
+import os
 
 from playsound import playsound
-import pyttsx3
+import gtts
 from loguru import logger
 
 from youtubesearchpython import VideosSearch
@@ -67,11 +68,12 @@ def _find_on_youtube(key: str) -> None:
 
 
 def _text_to_speech(text: str) -> None:
-    engine = pyttsx3.init()
-    engine.setProperty("rate", 120)
-    engine.setProperty("volume", 1)
-    engine.say(f"{text}")
-    engine.runAndWait()
+    path = Path('sounds', 'text_to_speech.mp3')
+    if path.is_file():
+        os.remove(path)
+    tts = gtts.gTTS(text, lang="ru")
+    tts.save(str(path))
+    playsound(str(path))
 
 
 def read_next(search_results: dict, start_with: int) -> None:
