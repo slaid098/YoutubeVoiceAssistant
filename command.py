@@ -2,6 +2,7 @@ from typing import Literal
 from pathlib import Path
 from datetime import datetime
 import os
+import time
 
 from playsound import playsound
 import gtts
@@ -70,7 +71,10 @@ def _find_on_youtube(key: str) -> None:
 def _text_to_speech(text: str) -> None:
     path = Path('sounds', 'text_to_speech.mp3')
     if path.is_file():
-        os.remove(path)
+        try:
+            os.remove(path)
+        except PermissionError:
+            path = Path('sounds', f'{int(time.time())}.mp3')
     tts = gtts.gTTS(text, lang="ru")
     tts.save(str(path))
     playsound(str(path))
