@@ -1,4 +1,4 @@
-from typing import Literal
+# from typing import Literal
 from pathlib import Path
 import os
 import time
@@ -63,7 +63,7 @@ def _listen_command() -> str:
         return 'запрос не распознан'
 
 
-def _make_sound(number_sound: Literal[1, 2, 3, 4]) -> None:
+def _make_sound(number_sound: int) -> None:
     path = str(Path('sounds', f'{number_sound}.mp3'))
     playsound(path)
 
