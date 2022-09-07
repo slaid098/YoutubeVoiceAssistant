@@ -1,1 +1,1 @@
-A voice assistant named Vicky for visually impaired people. It helps to find and launch videos on YouTube using voice commands.
+Голосовой помощник по имени Вики для слабовидящих людей. Помогает найти и запустить видео на ютубе при помощи голосовых команд.
