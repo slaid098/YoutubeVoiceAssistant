@@ -6,6 +6,12 @@ from command import do_commands
 from browser import Driver
 
 
+path_logs = "logs.log"
+
+logger.add(path_logs, format="{time} {level} {message}",
+           colorize=True, level="WARNING", rotation="1 MB", compression="zip")
+
+
 def main() -> None:
     do_commands()
 
