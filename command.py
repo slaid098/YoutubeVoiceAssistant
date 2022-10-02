@@ -62,8 +62,11 @@ def _listen_command() -> str:
 
 
 def _make_sound(number_sound: int) -> None:
-    path = str(Path('sounds', f'{number_sound}.mp3'))
-    playsound(path)
+    try:
+        path = str(Path('sounds', f'{number_sound}.mp3'))
+        playsound(path)
+    except Exception as ex:
+        logger.warning(f"{type(ex)} {ex}")
 
 
 def _find_on_youtube(key: str) -> None:
@@ -129,8 +132,11 @@ def _read_next(search_results: dict, start_with: int) -> None:
 
 
 def _text_to_speech(text: str) -> None:
-    path = Path('sounds', f'{int(time.time())}.mp3')
-    tts = gtts.gTTS(text, lang="ru")
-    tts.save(str(path))
-    playsound(str(path))
-    os.remove(path)
+    try:
+        path = Path('sounds', f'{int(time.time())}.mp3')
+        tts = gtts.gTTS(text, lang="ru")
+        tts.save(str(path))
+        playsound(str(path))
+        os.remove(path)
+    except Exception as ex:
+        logger.warning(f"{type(ex)} {ex}")
