@@ -67,4 +67,4 @@ class Driver:
     """
     stores an instance of the current browser
     """
-    chrome: Chrome | None = None
+    chrome = None
