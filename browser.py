@@ -11,7 +11,7 @@ from loguru import logger
 def get_url(url: str = "") -> None:
     try:
         _close_driver()
-        Driver.chrome = set_chrome_driver()
+        Driver.chrome = set_chrome_driver()  # type: ignore
         _browser_to_front()
         _get_url(url)
     except WebDriverException as ex:
