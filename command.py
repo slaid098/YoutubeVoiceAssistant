@@ -63,20 +63,23 @@ def _listen_command() -> str:
 
 def _make_sound(number_sound: int) -> None:
     try:
-        path = str(Path('sounds', f'{number_sound}.mp3'))
-        playsound(path)
+        path = Path('sounds', f'{number_sound}.mp3')
+        if not path.is_file():
+            logger.warning(f"Файл {path} не найден")
+            return
+        playsound(str(path))
     except Exception as ex:
         logger.warning(f"{type(ex)} {ex}")
 
 
 def _find_on_youtube(key: str) -> None:
     result = VideosSearch(key, limit=50).result()
-    print(result)
     Counter.max_len = len(result["result"])
     _text_to_speech(key)
     _read_next(result, Counter.start_counter)
     _make_sound(1)
     command = _listen_command()
+    
     while True:
         if "дальше" in command:
             _make_sound(1)
@@ -134,7 +137,7 @@ def _read_next(search_results: dict, start_with: int) -> None:
 def _text_to_speech(text: str) -> None:
     try:
         path = Path('sounds', f'{int(time.time())}.mp3')
-        tts = gtts.gTTS(text, lang="ru")
+        tts = gtts.gTTS(text, lang="ru", slow=False)
         tts.save(str(path))
         playsound(str(path))
         os.remove(path)
